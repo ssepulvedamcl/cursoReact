@@ -6,12 +6,15 @@
 //import MyComponent from './ciclo_de_objetos/componentWillReceivePropsECMA6';
 import React,{Component} from 'react';
 import './App.css';
-import Filtro from './components/FiltroComponente';
+import Filtro from "./components/Filtro";
 import BotonMostrar from './components/BotonMostrarComponente';
 import Tareas from './containers/TareasContainer'
 
+let FiltroTextoContext = React.createContext("");
+
 class App extends Component
 {
+  
   constructor(props){
     super(props)
     this.state = {
@@ -29,15 +32,19 @@ class App extends Component
 
   render(){
     console.log("render Apps");
+    let valorContexto = "Valor dentro del contexto";
     return(
     
     <div className="App">
     <header>
-      <Filtro texto="prueba"/>
-      <BotonMostrar mostrarPendientes={this.state.mostrarPendientes} 
-                    onClick={this.toggleMostrarPendientes}/>
-      <Tareas mostrarLista={this.state.mostrarPendientes} 
-              lista={this.state.tareas}/>
+      <FiltroTextoContext.Provider value={valorContexto}>
+        <Filtro texto="prueba"/>
+        <BotonMostrar mostrarPendientes={this.state.mostrarPendientes} 
+                      onClick={this.toggleMostrarPendientes}/>
+        <Tareas mostrarLista={this.state.mostrarPendientes} 
+                lista={this.state.tareas}/>
+      </FiltroTextoContext.Provider>
+      
     </header>
     
     </div>
@@ -57,6 +64,5 @@ class App extends Component
   }
 
 }
-
-
+export const FiltroContext = FiltroTextoContext;
 export default App;

@@ -1,34 +1,23 @@
-import React,{Component} from 'react';
+import React from 'react';
+import useContext from 'react';
+import FiltroContext from '../App';
 
-class Filtro extends Component{
-    constructor(props){
-        super(props)
-        this.state={"ultimotexto":""};
-        this.onChangeText = this.onChangeText.bind(this);
-
-      }
+function Filtro(){
+  const context = useContext(FiltroContext);
+  
+  function onChangeText(event){
     
-      render(){
-        console.log("render Filtro");
-        console.log(this.state);
-        return(
-            <div>
-                <input type="text" 
-                onChange={this.onChangeText}>
-                    </input>
-            </div>
-        )
-        
-      }
+    this.setState({"ultimotexto": event.target.value});
+    console.log("FiltroTextoContext modificado: " + context.value);
+  };
 
-      onChangeText(event){
-        this.setState({"ultimotexto": event.target.value});
-      }
-
-      static getDerivedStateFromProps(props, state){
-        console.log("getDerivatedStateFromProps() called!");
-        return state;
-      }
+  return(
+    <div>
+    <input type="text" 
+    onChange={onChangeText}>
+        </input>
+    </div>
+  );
 }
 
 export default Filtro;
