@@ -9,9 +9,9 @@ class BotonMostrar extends Component{
     
       render(){
         let textoBoton ="";
-        textoBoton = "Mostrar Todos"; 
+        textoBoton = "Mostrar Pendientes"; 
         if(this.props.mostrarPendientes){
-            textoBoton = "Mostrar Pendientes"; 
+            textoBoton = "Mostrar todos"; 
         }
         
         console.log("render BotonMostrar");

@@ -16,8 +16,11 @@ class App extends Component
     super(props)
     this.state = {
       "tareas" : [{"id":"01","fecha":"01-11-2019", "titulo":"Comprar el pan", "estado":"Pendiente"},
-                  {"id":"02","fecha":"10-11-2019", "titulo":"Hacer plan estratégico", "estado":"En progreso"}],
-      "mostrarPendientes":true,
+                  {"id":"02","fecha":"10-11-2019", "titulo":"Hacer plan estratégico", "estado":"En progreso"},
+                  {"id":"03","fecha":"10-11-2019", "titulo":"Hacer plan financiero", "estado":"Finalizada"},
+                  {"id":"04","fecha":"10-11-2019", "titulo":"Hacer la pega", "estado":"Finalizada"}
+                ],
+      "mostrarPendientes":false,
       "textoFiltro":""
     }
     this.toggleMostrarPendientes = this.toggleMostrarPendientes.bind(this);

@@ -7,10 +7,24 @@ class ListaTareas extends Component{
       }
     
       render(){
+        let estado;
+        let tareasFiltradas;
         console.log("render Tareas" + this.state.lista);
+        if(this.props.mostrarLista){
+          estado = "Pendiente";
+          tareasFiltradas = 
+            this.props.lista.filter(tarea=>{ return tarea.estado == estado;});
+        }
+        else
+        {
+          estado = "";
+          tareasFiltradas = this.props.lista;     
+        }
+        
+        
         return(
-            this.props.lista.map(tarea=>{
-                return <li>{tarea.id} {tarea.fecha} {tarea.titulo} {tarea.estado} </li>
+          tareasFiltradas.map(tarea=>{
+                return <li key={tarea.id}>{tarea.id} {tarea.fecha} {tarea.titulo} {tarea.estado} </li>
             })
 
         )
@@ -37,7 +51,8 @@ class ListaTareas extends Component{
 
       shouldComponentUpdate(nextProps, nextState){
         console.log("shouldComponentUpdate called! " + nextProps.mostrarLista);
-        return nextProps.mostrarLista;
+        //return nextProps.mostrarLista;
+        return true;
       }
            
 }
