@@ -1,7 +1,7 @@
 import React from 'react';
 import useContext from 'react';
 import FiltroContext from '../App';
-
+//import FiltroConsumer from '../App';
 function Filtro(){
   const context = useContext(FiltroContext);
   
@@ -13,10 +13,13 @@ function Filtro(){
 
   return(
     <div>
-    <input type="text" 
-    onChange={onChangeText}>
-        </input>
+      <FiltroContext.Consumer>
+      <input type="text" 
+      onChange={onChangeText}>
+          </input>
+          </FiltroContext.Consumer>
     </div>
+
   );
 }
 
