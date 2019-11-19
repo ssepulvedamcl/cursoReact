@@ -1,16 +1,10 @@
-//import MyButton from './components/MyButtonEvents';
-//import MyButton from './components/MyButtonBindings';
-//import Formulario from './components/InteractionsAndForms';
-//import MyComponent from './ciclo_de_objetos/componentWillMountECMA6';
-//import MyComponent from './ciclo_de_objetos/componentDidMountECMA6';
-//import MyComponent from './ciclo_de_objetos/componentWillReceivePropsECMA6';
 import React,{Component} from 'react';
 import './App.css';
-//import Filtro from "./components/FiltroComponente";
-import FiltroContext from './FiltroContext';
 import Filtro from "./components/FiltroClass";
 import BotonMostrar from './components/BotonMostrarComponente';
 import Tareas from './containers/TareasContainer'
+import { AppContext } from './context/contextApp';
+import {AppContextProvider} from './context/contextApp'
 
 class App extends Component
 {
@@ -23,39 +17,32 @@ class App extends Component
                   {"id":"03","fecha":"10-11-2019", "titulo":"Hacer plan financiero", "estado":"Finalizada"},
                   {"id":"04","fecha":"10-11-2019", "titulo":"Hacer la pega", "estado":"Finalizada"}
                 ],
-      "mostrarPendientes":false,
-      "textoFiltro":""
+      "mostrarPendientes": this.mostrarPendientes,        
     }
+    
     this.toggleMostrarPendientes = this.toggleMostrarPendientes.bind(this);
   }
 
+  toggleMostrarPendientes(event){
+    this.setState({mostrarPendientes: !this.state.mostrarPendientes});
+  }
 
   render(){
     console.log("render Apps");
-    let valorContexto = "Este dato esta dentro de un contexto";
-    return(
-    
-    <div className="App">
-    <header>
-      <FiltroContext.Provider value={valorContexto}>
-        <Filtro/>
-        <BotonMostrar mostrarPendientes={this.state.mostrarPendientes} 
-                      onClick={this.toggleMostrarPendientes}/>
-        <Tareas mostrarLista={this.state.mostrarPendientes} 
-                lista={this.state.tareas}/>
-      </FiltroContext.Provider>
-      
-    </header>
-    
-    </div>
-    
+      return(
+            <div className="App">
+            <header>
+                <AppContextProvider>
+                  <Filtro/>
+                  <BotonMostrar mostrarPendientes={this.state.mostrarPendientes} 
+                                onClick={this.toggleMostrarPendientes}/>
+                  
+                  <Tareas mostrarLista={this.state.mostrarPendientes} 
+                          lista={this.state.tareas}/>
+                </AppContextProvider>
+            </header>
+            </div>
     )
-  }
-
-  toggleMostrarPendientes(event){
-    console.log(this.state);
-    let value =this.state.mostrarPendientes;
-    this.setState({"mostrarPendientes":!value});
   }
 
   static getDerivedStateFromProps(props, state){
@@ -64,6 +51,5 @@ class App extends Component
   }
 
 }
-
-export const FiltroConsumer = FiltroContext.Consumer;
+App.contextType = AppContext;
 export default App;

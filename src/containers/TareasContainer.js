@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import { AppContext } from '../context/contextApp';
 
 class ListaTareas extends Component{
     constructor(props){
@@ -8,26 +9,41 @@ class ListaTareas extends Component{
     
       render(){
         let estado;
-        let tareasFiltradas;
+        let tareasFiltradas =this.props.lista;
         console.log("render Tareas" + this.state.lista);
+        console.log("Context TareasContainer filtroTexto:" + this.context.filtroTexto)
+                
+        if(this.context.filtroTexto!==""){
+          tareasFiltradas = 
+            tareasFiltradas.filter(tarea=>{ return tarea.titulo.indexOf(this.context.filtroTexto)>0;});
+        }
+        else{
+          tareasFiltradas = this.props.lista;
+        }
+        
+        
         if(this.props.mostrarLista){
           estado = "Pendiente";
           tareasFiltradas = 
-            this.props.lista.filter(tarea=>{ return tarea.estado == estado;});
-        }
-        else
-        {
-          estado = "";
-          tareasFiltradas = this.props.lista;     
+            tareasFiltradas.filter(tarea=>{ return tarea.estado === estado;});
         }
         
-        
+                
         return(
-          tareasFiltradas.map(tarea=>{
-                return <li key={tarea.id}>{tarea.id} {tarea.fecha} {tarea.titulo} {tarea.estado} </li>
-            })
-
+          <ul className={'container'}>
+          {tareasFiltradas.map(tarea=>{
+                let className="";
+                if(tarea.estado === "Finalizada")
+                  className = "bg-success";
+                else if(tarea.estado === "Pendiente")
+                  className = "bg-danger";
+                else
+                  className = "bg-info";
+                    return <li className={className} key={tarea.id}>{tarea.id} {tarea.fecha} {tarea.titulo} {tarea.estado} </li>
+          })}
+          </ul>
         )
+        
       }
 
       tareaPendiente()
@@ -56,4 +72,5 @@ class ListaTareas extends Component{
       }
            
 }
+ListaTareas.contextType = AppContext;
 export default ListaTareas;

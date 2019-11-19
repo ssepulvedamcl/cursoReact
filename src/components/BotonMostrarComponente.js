@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 
+
 class BotonMostrar extends Component{
     constructor(props){
         super(props)
@@ -16,7 +17,7 @@ class BotonMostrar extends Component{
         
         console.log("render BotonMostrar");
         return(
-            <button 
+            <button className={'btn-primary'}
             onClick={this.props.onClick}>
                 {textoBoton}</button>      
         )
